@@ -1,0 +1,31 @@
+{% load cache %}
+
+{% cache 500 top_block %}
+    <h1>Cached Block</h1>
+    <div>
+        Color sit amet, consectetur adipiscing elit. Fusce eget eleifend ligula, vel
+        imperdiet erat. Proin venenatis tincidunt lorem, et mattis enim euismod in.Pellentesque
+        et odio libero. Maecenas commodo risus vitae sem placerat placerat. In luctus,
+        augue vitae efficitur convallis, turpis magna consectetur ex, at tincidunt massa purus eu nisl.
+    </div>
+{% endcache %}
+
+{% cache 500 articles_list product_list %}
+    {% for p in product_list %}
+        <p style="line-height: 0">{{ p.name }}</p>
+    {% endfor %}
+
+    <div class="pagination">
+        <span class="page-links">
+            {% if page_obj.has_previous %}
+                <a href="/products/?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+            <span class="page-current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="/products/?page={{ page_obj.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+{% endcache %}
